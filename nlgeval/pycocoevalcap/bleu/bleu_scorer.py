@@ -18,6 +18,7 @@ cook_test(test, refs, n=4): Transform a test sentence as a string (together with
 
 import copy
 import sys, math, re
+import numpy as np
 from collections import defaultdict
 
 import six
@@ -53,7 +54,7 @@ def cook_refs(refs, eff=None, n=4): ## lhuang: oracle will call with "average"
     if eff == "shortest":
         reflen = min(reflen)
     elif eff == "average":
-        reflen = float(sum(reflen))/len(reflen)
+        reflen = np.mean(reflen)
 
     ## lhuang: N.B.: leave reflen computaiton to the very end!!
 
@@ -188,7 +189,7 @@ class BleuScorer(object):
         if option == "shortest":
             reflen = min(reflens)
         elif option == "average":
-            reflen = float(sum(reflens))/len(reflens)
+            reflen = np.mean(reflens)
         elif option == "closest":
             reflen = min((abs(l-testlen), l) for l in reflens)[1]
         else:
