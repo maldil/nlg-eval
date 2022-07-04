@@ -20,6 +20,7 @@ import copy
 import sys, math, re
 from collections import defaultdict
 
+import numpy as np
 import six
 from six.moves import xrange as range
 
@@ -188,7 +189,7 @@ class BleuScorer(object):
         if option == "shortest":
             reflen = min(reflens)
         elif option == "average":
-            reflen = float(sum(reflens))/len(reflens)
+            reflen = np.mean(reflens)
         elif option == "closest":
             reflen = min((abs(l-testlen), l) for l in reflens)[1]
         else:
